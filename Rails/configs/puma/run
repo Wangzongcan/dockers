@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+cd $APP_PATH
+exec chpst -u app bundle exec puma --config config/puma.rb \
+                                   --environment production \
+                                   --bind "unix://$PWD/tmp/sockets/puma.sock"
+                                   --control-url "unix://$PWD/tmp/pids/pumactl.sock" \
+                                   --state $PWD/tmp/pids/puma.state
